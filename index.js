@@ -2,6 +2,7 @@
 // var HTTPService = require('./http_service');
 var FeedparserService = require('./feedparser_service');
 var SlackService = require('./slack_service');
+var CONFIG = require('./config');
 
 var tag = "quickblox";
 var additionalTags = ["ios"];
@@ -29,7 +30,7 @@ feedParser.parse(stackoverflowFeedUrl + tag, function(items){
                               }]
                             };
 
-    var slackAPI = new SlackService();
+    var slackAPI = new SlackService(CONFIG.webhookUrl);
     slackAPI.fire(data,
       function(){
         console.log("Success!");

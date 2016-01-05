@@ -1,8 +1,8 @@
 var request = require("request");
 
 // SlackService constructor.
-var SlackService = function() {
-  this.webhookUrl = "...";
+var SlackService = function(slackWebhookUrl) {
+  this.webhookUrl = slackWebhookUrl;
 };
 
 // HTTPService get method
