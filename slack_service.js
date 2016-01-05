@@ -2,7 +2,7 @@ var request = require("request");
 
 // SlackService constructor.
 var SlackService = function() {
-  this.webhookUrl = "";
+  this.webhookUrl = "...";
 };
 
 // HTTPService get method

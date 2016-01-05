@@ -3,7 +3,6 @@
 var FeedparserService = require('./feedparser_service');
 var SlackService = require('./slack_service');
 
-
 var tag = "quickblox";
 var additionalTags = ["ios"];
 var stackoverflowFeedUrl = "http://stackoverflow.com/feeds/tag/";
@@ -20,8 +19,6 @@ feedParser.parse(stackoverflowFeedUrl + tag, function(items){
     });
 
     var it = items[0];
-    // var data = {"text": text};
-
     var data = {attachments: [{
                                 pretext: "New activity. <" + it.link + "|Check it>",
                                 fields: [{title: "Title", value: it.title, short: false},
@@ -35,7 +32,7 @@ feedParser.parse(stackoverflowFeedUrl + tag, function(items){
     var slackAPI = new SlackService();
     slackAPI.fire(data,
       function(){
-        console.log("Ok!");
+        console.log("Success!");
       },function(error){
         console.error(error);
       });
