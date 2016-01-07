@@ -3,6 +3,9 @@
 var FeedparserService = require('./feedparser_service');
 var SlackService = require('./slack_service');
 var CONFIG = require('./config');
+if(!CONFIG.webhookUrl){
+  CONFIG = require('./config_local');
+}
 
 var stackoverflowFeedUrl = "http://stackoverflow.com/feeds/tag/";
 
