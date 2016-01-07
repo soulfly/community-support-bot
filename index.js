@@ -6,12 +6,24 @@ var CONFIG = require('./config');
 if(!CONFIG.webhookUrl){
   CONFIG = require('./config_local');
 }
+var CronJob = require('cron').CronJob;
 
 var stackoverflowFeedUrl = "http://stackoverflow.com/feeds/tag/";
 
-start();
+
+try {
+  new CronJob('*/60 * * * * *', function() {
+    console.log('You will see this message every 60 seconds');
+    start();
+  }, null, true, 'America/Los_Angeles');
+} catch(ex) {
+  console.log("cron pattern not valid: " + ex);
+}
+
 
 function start(){
+  console.log("start");
+
   var feedParser = new FeedparserService();
   feedParser.parse(stackoverflowFeedUrl + CONFIG.mainTag, function(entries){
 
