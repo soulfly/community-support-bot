@@ -14,8 +14,7 @@ var stackoverflowFeedUrl = "http://stackoverflow.com/feeds/tag/";
 var logger = new Logger(CONFIG.logMode);
 
 try {
-  var cronSchedule = '*/' + CONFIG.runIntervalInSeconds + ' * * * * *';
-  new CronJob(cronSchedule, function() {
+  new CronJob(CONFIG.runScheduleForCron, function() {
     start();
   }, null, true, 'America/Los_Angeles');
 } catch(ex) {
@@ -60,7 +59,7 @@ function isNewEntry(entry){
   var entryTimestamp = entry.date.getTime();
   var currentTimestamp = Date.now();
 
-  return currentTimestamp-entryTimestamp <= (CONFIG.runIntervalInSeconds*1000);
+  return currentTimestamp-entryTimestamp <= (CONFIG.newQuestionIntervalInSeconds*1000);
 }
 
 function isEntryHasNeededTags(entry){
