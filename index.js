@@ -2,6 +2,7 @@
 // var HTTPService = require('./http_service');
 var FeedparserService = require('./feedparser_service');
 var SlackService = require('./slack_service');
+var Logger = require('./logger');
 var CONFIG = require('./config');
 if(!CONFIG.webhookUrl){
   CONFIG = require('./config_local');
@@ -10,19 +11,20 @@ var CronJob = require('cron').CronJob;
 
 var stackoverflowFeedUrl = "http://stackoverflow.com/feeds/tag/";
 
+var logger = new Logger(CONFIG.logMode);
 
 try {
-  new CronJob('*/60 * * * * *', function() {
-    console.log('You will see this message every 60 seconds');
+  var cronSchedule = '*/' + CONFIG.runIntervalInSeconds + ' * * * * *';
+  new CronJob(cronSchedule, function() {
     start();
   }, null, true, 'America/Los_Angeles');
 } catch(ex) {
-  console.log("cron pattern not valid: " + ex);
+  logger.log("cron pattern not valid: " + ex);
 }
 
 
 function start(){
-  console.log("start");
+  logger.log("start");
 
   var feedParser = new FeedparserService();
   feedParser.parse(stackoverflowFeedUrl + CONFIG.mainTag, function(entries){
@@ -31,7 +33,7 @@ function start(){
 
       entries.forEach(function(entry, i, arr) {
         if(isNewEntry(entry) && isEntryHasNeededTags(entry)){
-          console.log("New Entry found! Date: " + entry.date + ". Title: " + entry.title);
+          logger.log("New Entry found. Date: " + entry.date + ". Title: " + entry.title);
 
           if(!slackAPI){
             slackAPI = new SlackService(CONFIG.webhookUrl);
@@ -41,15 +43,15 @@ function start(){
 
           slackAPI.fire(message,
             function(){
-              console.log("Message has pushed successfully.");
+              logger.log("Message has pushed successfully.");
             },function(error){
-              console.error(error);
+              logger.error(error);
             });
         }
       });
 
     },function(error){
-      console.error(error);
+      logger.error(error);
     }
   );
 }
@@ -58,7 +60,7 @@ function isNewEntry(entry){
   var entryTimestamp = entry.date.getTime();
   var currentTimestamp = Date.now();
 
-  return currentTimestamp-entryTimestamp <= CONFIG.runIntervalInMilliseconds;
+  return currentTimestamp-entryTimestamp <= (CONFIG.runIntervalInSeconds*1000);
 }
 
 function isEntryHasNeededTags(entry){
