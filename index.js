@@ -14,6 +14,7 @@ var stackoverflowFeedUrl = "http://stackoverflow.com/feeds/tag/";
 var logger = new Logger(CONFIG.logMode);
 
 try {
+  logger.log("cron format: " + CONFIG.runScheduleForCron);
   new CronJob(CONFIG.runScheduleForCron, function() {
     start();
   }, null, true, 'America/Los_Angeles');
