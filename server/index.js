@@ -2,7 +2,6 @@
 // var HTTPService = require('./http_service');
 var FeedparserService = require('./feedparser_service');
 var SlackService = require('./slack_service');
-var Logger = require('./logger');
 var CONFIG = require('./config');
 if(!CONFIG.webhookUrl){
   CONFIG = require('./config_local');
@@ -11,20 +10,18 @@ var CronJob = require('cron').CronJob;
 
 var stackoverflowFeedUrl = "http://stackoverflow.com/feeds/tag/";
 
-var logger = new Logger(CONFIG.logMode);
-
 try {
-  logger.log("cron format: " + CONFIG.runScheduleForCron);
+  console.log("cron format: " + CONFIG.runScheduleForCron);
   new CronJob(CONFIG.runScheduleForCron, function() {
     start();
   }, null, true, 'America/Los_Angeles');
 } catch(ex) {
-  logger.log("cron pattern not valid: " + ex);
+  console.log("cron pattern not valid: " + ex);
 }
 
 
 function start(){
-  logger.log("start");
+  console.log("start");
 
   var feedParser = new FeedparserService();
   feedParser.parse(stackoverflowFeedUrl + CONFIG.mainTag, function(entries){
@@ -33,7 +30,7 @@ function start(){
 
       entries.forEach(function(entry, i, arr) {
         if(isNewEntry(entry) && isEntryHasNeededTags(entry)){
-          logger.log("New Entry found. Date: " + entry.date + ". Title: " + entry.title);
+          console.log("New Entry found. Date: " + entry.date + ". Title: " + entry.title);
 
           if(!slackAPI){
             slackAPI = new SlackService(CONFIG.webhookUrl);
@@ -43,15 +40,15 @@ function start(){
 
           slackAPI.fire(message,
             function(){
-              logger.log("Message has pushed successfully.");
+              console.log("Message has pushed successfully.");
             },function(error){
-              logger.error(error);
+              console.error(error);
             });
         }
       });
 
     },function(error){
-      logger.error(error);
+      console.error(error);
     }
   );
 }
