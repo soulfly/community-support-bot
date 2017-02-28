@@ -10,6 +10,8 @@ var FeedparserService = function() {
 FeedparserService.prototype.parse = function(url, successCallback, errorCallback) {
   var self = this;
 
+  console.log("quering url: " + url);
+
   var req = request(url),
     feedparser = new FeedParser([]);
 
