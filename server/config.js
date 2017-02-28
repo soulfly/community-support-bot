@@ -3,8 +3,7 @@ var CONFIG = {
   mainTag: "quickblox",
   additionalTags: ["android"],
   newQuestionIntervalInSeconds: 60,
-  runScheduleForCron: '15 * * * *',
-  logMode: 2 // 1 is console, 2 is file
+  runScheduleForCron: '15 * * * *'
 };
 
 module.exports = CONFIG;
