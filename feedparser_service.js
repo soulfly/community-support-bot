@@ -12,7 +12,7 @@ FeedparserService.prototype.parse = function(url, successCallback, errorCallback
 
   console.log("quering url: " + url);
 
-  var req = request(url),
+  var req = request({headers: {"user-agent": "node.js"}, uri: url}),
     feedparser = new FeedParser([]);
 
   req.on('error', function (error) {
