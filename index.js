@@ -21,10 +21,13 @@ try {
 
 
 function start(){
-  console.log("start");
+  console.log("start by cron");
+  console.log(CONFIG.additionalTags)
 
   var feedParser = new FeedparserService();
   feedParser.parse(stackoverflowFeedUrl + CONFIG.mainTag, function(entries){
+
+      console.log("got " + entries.length + " entries");
 
       var slackAPI;
 
@@ -61,6 +64,8 @@ function isNewEntry(entry){
 }
 
 function isEntryHasNeededTags(entry){
+  console.log("entry tags: ");
+  console.log(entry.categories);
 
   for(var i = 0; i < entry.categories.length; i++){
     var entryTag = entry.categories[i];
