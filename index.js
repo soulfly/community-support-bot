@@ -32,7 +32,10 @@ function start(){
       var slackAPI;
 
       entries.forEach(function(entry, i, arr) {
-        if(isNewEntry(entry) && isEntryHasNeededTags(entry)){
+        var isNew = isNewEntry(entry);
+        console.log("isNew: " + isNew + ". tags: " + JSON.stringify(entry.categories));
+        
+        if(isNew && isEntryHasNeededTags(entry)){
           console.log("New Entry found. Date: " + entry.date + ". Title: " + entry.title);
 
           if(!slackAPI){
@@ -64,9 +67,6 @@ function isNewEntry(entry){
 }
 
 function isEntryHasNeededTags(entry){
-  console.log("entry tags: ");
-  console.log(entry.categories);
-
   for(var i = 0; i < entry.categories.length; i++){
     var entryTag = entry.categories[i];
 
