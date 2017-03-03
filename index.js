@@ -34,7 +34,7 @@ function start(){
       entries.forEach(function(entry, i, arr) {
         var isNew = isNewEntry(entry);
         console.log("isNew: " + isNew + ". tags: " + JSON.stringify(entry.categories));
-        
+
         if(isNew && isEntryHasNeededTags(entry)){
           console.log("New Entry found. Date: " + entry.date + ". Title: " + entry.title);
 
@@ -60,6 +60,9 @@ function start(){
 }
 
 function isNewEntry(entry){
+  console.log("date: " + JSON.stringify(entry.date));
+  console.log("updated: " + JSON.stringify(entry.updated));
+  
   var entryTimestamp = entry.date.getTime();
   var currentTimestamp = Date.now();
 
