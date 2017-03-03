@@ -2,7 +2,7 @@ var CONFIG = {
   webhookUrl: null,
   mainTag: "quickblox",
   additionalTags: ["android"],
-  newQuestionIntervalInSeconds: 60,
+  newQuestionIntervalInSeconds: 300,
   runScheduleForCron: '15 * * * *'
 };
 
