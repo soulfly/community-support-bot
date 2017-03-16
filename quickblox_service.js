@@ -35,8 +35,6 @@ QuickBloxService.prototype.buildMessage = function(feedEntry){
 }
 
 QuickBloxService.prototype.fire = function(data, successCallback, errorCallback) {
-  var self = this;
-
   this.checkSession(function(err){
     var params = {
         chat_dialog_id: this.chatDialogId,
