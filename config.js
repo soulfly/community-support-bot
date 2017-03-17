@@ -9,7 +9,7 @@ var CONFIG = {
     botUser: {
       login: null,
       password: null
-    }
+    },
     chatDialogId: null
   },
   stackoverflow: {

@@ -1,4 +1,4 @@
-var quickblox = require("quickblox");
+var QB = require("quickblox");
 
 // QuickBloxService constructor.
 var QuickBloxService = function(appId, authKey, authSecret, botUser, chatDialogId) {
