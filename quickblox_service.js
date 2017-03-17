@@ -8,11 +8,13 @@ var QuickBloxService = function(appId, authKey, authSecret, botUser, chatDialogI
   this.botUser = botUser;
   this.chatDialogId = chatDialogId;
 
+  this.sessionExpirationTime = null;
+
   QB.init(appId, authKey, authSecret);
 };
 
 QuickBloxService.prototype.checkSession = function(callback){
-  if(!QB.service.qbInst.session){
+  if(!QB.service.qbInst.session || (new Date()).toISOString() > this.sessionExpirationTime){
      var params = {login: this.botUser.login, password: this.botUser.password};
      QB.createSession(params, function(err, result) {
        if (typeof callback === 'function'){
@@ -35,6 +37,8 @@ QuickBloxService.prototype.buildMessage = function(feedEntry){
 }
 
 QuickBloxService.prototype.fire = function(data, successCallback, errorCallback) {
+  var self = this;
+
   this.checkSession(function(err){
     var params = {
         chat_dialog_id: this.chatDialogId,
@@ -43,6 +47,8 @@ QuickBloxService.prototype.fire = function(data, successCallback, errorCallback)
     };
 
     QB.chat.message.create(params, function(err, res) {
+      self.sessionExpirationTime = (new Date()).toISOString();
+
       if(err){
         console.log("error sending QuickBlox API request: " + JSON.stringify(err));
         errorCallback(err);
