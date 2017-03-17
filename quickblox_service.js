@@ -25,12 +25,11 @@ QuickBloxService.prototype.checkSession = function(callback){
          callback(err);
        }
      });
-   }else{
-     if (typeof callback === 'function'){
-       callback(null);
-     }
-   }
- }
+  }else{
+    if (typeof callback === 'function'){
+      callback(null);
+    }
+  }
 }
 
 QuickBloxService.prototype.buildMessage = function(feedEntry){
