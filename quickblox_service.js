@@ -10,7 +10,11 @@ var QuickBloxService = function(appId, authKey, authSecret, botUser, chatDialogI
 
   this.sessionExpirationTime = null;
 
-  QB.init(appId, authKey, authSecret);
+  var CONFIG = {
+    debug: {mode: 1} // set DEBUG mode
+  };
+
+  QB.init(appId, authKey, authSecret, CONFIG);
 };
 
 QuickBloxService.prototype.checkSession = function(callback){
