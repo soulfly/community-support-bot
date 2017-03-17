@@ -1,4 +1,4 @@
-# Overview 
+# Overview
 StackOverflow tags trigger for Slack
 
 # Setup
@@ -6,12 +6,23 @@ In order to run the node.js app you have to edit **config.js**:
 
 ```javascript
 var CONFIG = {
-  webhookUrl: "...",
-  mainTag: "quickblox",
-  additionalTags: ["android"],
-  newQuestionIntervalInSeconds: 60,
-  runScheduleForCron: '15 * * * *',
-  logMode: 2 // 1 is console, 2 is file
+  slack: {
+    webhookUrl: null
+  },
+  quickblox: {
+    appId: 0,
+    authKey: null,
+    authSecret: null,
+    botUser: {
+      login: null,
+      password: null
+    }
+    chatDialogId: null
+  },
+  stackoverflow: {
+    mainTag: "quickblox",
+    additionalTags: ["android"]
+  }
 };
 ```
 
