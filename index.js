@@ -97,7 +97,7 @@ function isEntryHasNeededTags(entry){
     for(var j = 0; j < CONFIG.stackoverflow.additionalTags.length; j++){
       var tagToCheck = CONFIG.stackoverflow.additionalTags[j];
 
-      if(entryTag.indexOf(tagToCheck) > -1){
+      if(entryTag == tagToCheck){
         return true;
       }
     }
