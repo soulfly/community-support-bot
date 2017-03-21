@@ -44,7 +44,7 @@ QuickBloxService.prototype.fire = function(data, successCallback, errorCallback)
 
   this.checkSession(function(err){
     var params = {
-        chat_dialog_id: this.chatDialogId,
+        chat_dialog_id: self.chatDialogId,
         message: data,
         send_to_chat: 1
     };
