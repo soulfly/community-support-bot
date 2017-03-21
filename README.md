@@ -1,5 +1,5 @@
 # Overview
-StackOverflow tags trigger for Slack
+Community support bot (only StackOverflow is supported currently)
 
 # Setup
 In order to run the node.js app you have to edit **config.js**:
