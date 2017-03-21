@@ -33,9 +33,8 @@ QuickBloxService.prototype.checkSession = function(callback){
 }
 
 QuickBloxService.prototype.buildMessage = function(feedEntry){
-  var message = "New activity: " + feedEntry.link +
-               ". Title: " + feedEntry.title +
-               ". Tags: " + feedEntry.categories.join(", ");
+  var message = "New activity: " + feedEntry.title +
+                ". " + feedEntry.link; // feedEntry.categories.join(", ")
   return message;
 }
 
